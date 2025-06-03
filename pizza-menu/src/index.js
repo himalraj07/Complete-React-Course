@@ -76,4 +76,6 @@ root.render(
   </React.StrictMode>
 );
 
+// Theory Lectures
 // Components as building blocks
+// What is JSX?
