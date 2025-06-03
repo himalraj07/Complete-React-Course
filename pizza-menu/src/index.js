@@ -13,3 +13,5 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// Components as building blocks
