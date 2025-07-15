@@ -80,10 +80,26 @@ function Form({ onAddItems }) {
 }
 
 function PackingList({ items, onDeleteItem, onToggleItem }) {
+  const [shortBy, setShortBy] = useState("input");
+
+  let shortedItems;
+
+  if (shortBy === "input") shortedItems = items;
+
+  if (shortBy === "description")
+    shortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+
+  if (shortBy === "packed")
+    shortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
-        {items.map((item) => (
+        {shortedItems.map((item) => (
           <Item
             item={item}
             onDeleteItem={onDeleteItem}
@@ -92,6 +108,14 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
           />
         ))}
       </ul>
+
+      <div className="actions">
+        <select value={shortBy} onChange={(e) => setShortBy(e.target.value)}>
+          <option value="input">Sort by the input order</option>
+          <option value="description">Sort by the description</option>
+          <option value="packed">Sort by the packed status</option>
+        </select>
+      </div>
     </div>
   );
 }
